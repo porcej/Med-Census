@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Census List | Med Tracking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="content">
+        <a href="{{ url_for('upload_file') }}">Census Upload</a> | <span>Census List</span> | <a href="{{ url_for('get_encounters') }}">Encounters</a> | <a href="{{ url_for('get_notes') }}"> Notes</a> | <a href="/logout">Logout</a>
+        <h1>Uploaded Files:</h1>
+        <ul>
+            {% for aid_station in files %}
+                <li>{{ aid_station["name"] }}
+                    <ul>
+                        {% for file in aid_station['files'] %}
+                            <li><a href="{{ url_for('download_file', file_name=file) }}" download>{{ file }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                    <!--  -->
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

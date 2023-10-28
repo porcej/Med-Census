@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Census Upload | Med Census</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content">
+    <span>Census Upload</span> | <a href="{{ url_for('list_uploads') }}">Census List</a> | <a href="{{ url_for('get_encounters') }}">Encounters</a> | <a href="{{ url_for('get_notes') }}"> Notes</a> | <a href="/logout">Logout</a>
+    <div>
+        <h1>Upload Aid Station Census</h1>
+        <form method="POST" enctype="multipart/form-data" class="form-inline">
+            <select name="aidstation" id="aidstation-select">
+                <option value="">Aid Station</option>
+                {% for asm in aid_station_map.items() %}
+                    <option value="{{ asm[0] }}">{{ asm[1] }}</option>
+                {% endfor %}
+            </select>
+            <label for="file-upload">Aid Station Census (xlxs)</label>
+            <input type="file" name="file" id="file-upload">
+            <button type="submit" value="Upload">Submit</button>
+        </form>
+        <p> Use this form to submit your Aid Station Census.  Select an aid station and upload your station Census XLXS.  You can download a <a href="{{ url_for('static', filename='Medical_Census_Roster_Sheet_22OCT2023.xlsx') }}">Census template</a>.</p>
+
+        {% with errors = get_flashed_messages(category_filter=["error"]) %}
+        {% if errors %}
+        <div class="alert-message block-message error">
+          <ul>
+            {%- for msg in errors %}
+            <li>{{ msg }}</li>
+            {% endfor -%}
+          </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% with successes = get_flashed_messages(category_filter=["success"]) %}
+        {% if successes %}
+        <div class="success-message block-message error">
+            {%- for msg in successes %}
+                {{ msg }}
+                <br>
+            {% endfor -%}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <div class="active-encounters-div">
+        <h1>Active Encounters</h1>
+        {% for aid_station in aid_station_map.keys() %}
+            <table class="active-encounters-aid">
+                <thead class="{{ 'good-field' if  active_encounters[aid_station] | length == 0 }} {{ 'warn-field' if  (active_encounters[aid_station] | length > 0) and  (active_encounters[aid_station] | length < 10)}} {{ 'danger-field' if  active_encounters[aid_station] | length >= 10 }}">
+                    <tr>
+                        <th>{{ aid_station_map[aid_station] }} ({{ active_encounters[aid_station] | length }})</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aedx in active_encounters[aid_station] %}
+                        <tr><td>{{ aedx[2] }}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+    <div class="synopsis-div">
+        <h1>Synopsis</h1>
+        <table class="synopsis">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>Encounters</th>
+                    <th>Active Encounters</th>
+                    <th>Completed Encounters</th>
+                    <th>Transports</th>
+                </tr>
+                <tr>
+                    <th> </th>
+                    <th>{{ synopsis['total']['encounters'] }}</th>
+                    <th>{{ synopsis['total']['active'] }}</th>
+                    <th>{{ synopsis['total']['discharged'] }}</th>
+                    <th>{{ synopsis['total']['transported'] }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aid_station in aid_station_map.keys() %}
+                    <tr>
+                        <td>{{ aid_station_map[aid_station] }}</td>
+                        <th>{{ synopsis['stations'][aid_station]['encounters'] }}</th>
+                        <th>{{ synopsis['stations'][aid_station]['active'] }}</th>
+                        <th>{{ synopsis['stations'][aid_station]['discharged'] }}</th>
+                        <th>{{ synopsis['stations'][aid_station]['transported'] }}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

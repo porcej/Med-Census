@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Encounters | Med Census</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='vend/dt/css/jquery-ui.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vend/dt/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vend/dt/css/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vend/dt/css/select.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vend/dt/css/dataTables.dateTime.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='vend/dt/css/editor.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ url_for('static', filename='vend/dt/js/jquery-3.7.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/dataTables.select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/dataTables.dateTime.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/dataTables.editor.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/jszip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vend/dt/js/buttons.print.min.js') }}"></script>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content">
+     <a href="{{ url_for('upload_file') }}">Census Upload</a> | <a href="{{ url_for('list_uploads') }}">Census List</a> | <span>Encounters</span> | <a href="{{ url_for('get_notes') }}"> Notes</a> | <a href="/logout">Logout</a>
+    <div>
+        <h1>Encounters</h1>
+        <p>Searching for 'active' will filter out all discharged, filtering on 'discharged' will filter out all active.  Filtering on 'transport' will filter out all non-transported.</p>
+        <table cellpadding="0" cellspacing="0" border="0" class="display" id="encounters-table" width="100%">
+            <thead>
+                <tr>
+                    <th>Aid Station</th>
+                    <th>Bib #</th>
+                    <th>Discharged</th>
+                    <th>Transported</th>
+                    <th>Destination Hospital</th>
+                    <th>Census Time</th>
+                </tr>
+            </thead>
+        </table>
+     </div>   
+</div>
+<script src="{{ url_for('static', filename='js/encounters.js') }}"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>
