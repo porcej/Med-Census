@@ -133,7 +133,7 @@ def create_database():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('upload_fiel'))
+        return redirect(url_for('upload_file'))
 
     # If a post request was made, find the user by 
     # filtering for the username
