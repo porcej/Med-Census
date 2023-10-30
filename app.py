@@ -1,3 +1,18 @@
+#!/usr/bin/env python
+# -*- coding: ascii -*-
+
+"""
+App to track runners in aid stations for the MCM
+
+Changelog:
+    - 2023-10-28 - Initial Commit
+"""
+
+__author__ = "Joseph Porcelli (porcej@gmail.com)"
+__version__ = "0.0.1"
+__copyright__ = "Copyright (c) 2023 Joseph Porcelli"
+__license__ = "MIT"
+
 import datetime
 import os
 import re
@@ -300,7 +315,6 @@ def list_uploads():
     file_list_by_aid = []
 
     for asdx in app.config['AID_STATION_MAP'].keys():
-        print(f"In aid station {asdx}", file=sys.stderr)
         file_list_by_aid.append({
             "name": app.config['AID_STATION_MAP'][asdx],
             "files": [f for f in sorted_file_list if f.upper().startswith(asdx)]
@@ -347,7 +361,6 @@ def api_encounters():
         id = 0
 
         for key in request.form.keys():
-            print(f"Key: {key}", file=sys.stderr)
             matches = re.search(pattern, key)
             if matches:
                 id = int(matches.group(1))
@@ -413,7 +426,6 @@ def api_notes():
         id = 0
 
         for key in request.form.keys():
-            print(f"Key: {key}", file=sys.stderr)
             matches = re.search(pattern, key)
             if matches:
                 id = int(matches.group(1))
