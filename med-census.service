@@ -1,0 +1,15 @@
+[Unit]
+Description=Med-Census: An Aid Station Census Agrigator
+After=network.target
+
+[Service]
+ExecStartPre=/bin/sleep 45
+ExecStart=/home/pi/Med-Census/start.sh
+WorkingDirectory=/home/pi/Med-Census
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
